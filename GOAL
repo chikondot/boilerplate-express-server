@@ -1,3 +1,15 @@
 // create REST API server for reuse over multiple projects
 
-ROUTE(shist)
+ROUTES:
+    REQUEST JSON && FORM URLENCODED
+    RESPONSE JSON
+AUTHENTICATION
+MIDDLEWARE
+    ERROR HANDLING
+    DATABASE CONNECTIONS:
+        MARIADB
+        MONGODB
+        POSTGRESQL
+    RANDOM FUNCTIONS:
+        // should assist with common task i encounter
+    

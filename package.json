@@ -1,0 +1,23 @@
+{
+  "name": "boilerplate-expess-server",
+  "version": "1.0.0",
+  "description": "Generic boilerplate code for REST API server for reuse over multiple projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chikondot/boilerplate-express-server.git"
+  },
+  "author": "Tongai Chikondo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chikondot/boilerplate-express-server/issues"
+  },
+  "homepage": "https://github.com/chikondot/boilerplate-express-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
