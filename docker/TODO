@@ -1,0 +1,8 @@
+create docker compose file to set enviroments
+DATABSE
+    1. mongodb
+    2. mariadb
+    3. postgres
+REVERSE PROXY
+    1. nginx
+    2. caddy
