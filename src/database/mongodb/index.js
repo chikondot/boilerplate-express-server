@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 
 // define connection string 
-const url = `mongodb://` + process.env.MONGODB_HOST + `:` + process.env.MONGODB_PORT + `/` + process.env.MONGODB_DB ;
-const auth_url = ``; // TODO : add connection url with username and password
+const url = `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`;
+const auth_url = `mongodb://username:password@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/?authSource=admin`;
 
 // CONNECT TO DATABASE FOR SPECIFIED URL
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {

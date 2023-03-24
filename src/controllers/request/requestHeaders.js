@@ -6,13 +6,7 @@ const {
 } = require("../../utils/errors/invalid");
 
 const headerController = async function (request, response, next) {
-  if (request.headers["content-type"] !== "application/json") {
-    return responseError(response, INVALID_CONTENT_TYPE_HEADER);
-  } else if (request.headers["user-agent"] !== "chikondot") {
-    return responseError(response, INVALID_USER_AGENT_HEADER);
-  }
-
-  if (request.path !== "/authentication") {
+  if (!isAuthentication) {
     if (!request.headers["session-id"]) {
       return responseError(response, MISSING_SESSIONID_HEADER);
     }
@@ -23,7 +17,13 @@ const headerController = async function (request, response, next) {
     }
   }
 
-  next();
+  if (request.headers["content-type"] !== "application/json") {
+    return responseError(response, INVALID_CONTENT_TYPE_HEADER);
+  } else if (request.headers["user-agent"] !== "chikondot") { // TODO :: when nginx introduced only allow filtered requests
+    return responseError(response, INVALID_USER_AGENT_HEADER);
+  } else {
+    next();
+  }
 };
 
 function responseError(response, message) {
@@ -32,5 +32,11 @@ function responseError(response, message) {
     error: message,
   });
 }
+
+function isAuthentication(request) {
+  return request.path === "/authentication" ? true : false;
+}
+
+async function isValidSession(sessionId) {}
 
 module.exports = headerController;

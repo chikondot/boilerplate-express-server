@@ -1,21 +1,35 @@
 // create REST API server for reuse over multiple projects
+v1:
 
 AUTHENTICATION ROUTE (public)
     - as an admin/user i want to ensure all API requests are secure
+    * call /authentication 
+        *  check allowed request and has values 
+        *  confirm username exists in DB 
+        *  confirm username + password is correct
+        *  generate UUID and update db values
+        *  return to user 
+        *  session-id only valid for 30min
 
 USER ROUTE (public)
     - as a user i want to be able to see and update my information
+    * call /user
+        * check allowed request + sessionId
+        * return to user
 
 ADMIN ROUTE (private)
     - as an admin i want to controll access to the service 
+    * call /admin   
+        * create a user 
 
+v2:
 
-TODO!
 MIDDLEWARE
+    NGINX
+    DOCKERIZE
     ERROR HANDLING
     DATABASE CONNECTIONS:
         MARIADB
-        MONGODB
         POSTGRESQL
 
 RUN PROJECT IN PRODUCTION
