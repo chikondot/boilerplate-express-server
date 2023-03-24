@@ -4,11 +4,9 @@ const router = express.Router();
 
 const controller = require('../controllers/index');
 
-// route validate all requests
-router.use(controller.validateRequest);
-
 // route handling
-router.post('/post', controller.middleware);
+router.post('/authentication', controller.authentication);
+router.post('/user', [controller.validation, controller.user]);
 
 // EXPORT
 module.exports = router;

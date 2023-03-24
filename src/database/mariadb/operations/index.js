@@ -10,7 +10,7 @@ const mariaDB = function () {
     // example of an INSERT statement
     this.insert = function (columns, values) { 
         try {
-            var stmnt = `INSERT INTO ` + process.env.MARIADB_TABLE + ` (` + columns + `) VALUES (` + values + `)`;
+            var stmnt = `INSERT INTO ` + process.env.MARIADB_USER_TABLE + ` (` + columns + `) VALUES (` + values + `)`;
             connect.query(stmnt, function (err, result) {
                 if (err) throw err;
 
@@ -26,7 +26,7 @@ const mariaDB = function () {
     // example of a SELECT statement
     this.select = function (columns) {
         try {
-            var stmnt = `SELECT ` + columns + ` FROM ` + process.env.MARIADB_TABLE + ``;
+            var stmnt = `SELECT ` + columns + ` FROM ` + process.env.MARIADB_USER_TABLE + ``;
             connect.query(stmnt, function (err, result) {
                 if (err) throw err;
 

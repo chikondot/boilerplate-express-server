@@ -1,40 +1,54 @@
+const validation = async function (request, response, next) {
+  // check if request headers application/json
+  if (request.headers["content-type"] !== "application/json") {
+    return response.status(403).json({
+      success: false,
+      error: "Invalid ContentType",
+    });
+  }
 
-const validateRequest =  async function (request, response, next) {
-    // check if request headers application/json
-    if (request.headers['content-type'] !== 'application/json') {
-        return response.status(403).json({
-            success: false,
-            error: "Invalid ContentType"
-        });
-    }
-
-    // check if body non null 
-    if (!request.body) {
-        return response.status(403).json({
-            success: false,
-            error: "Invalid RequestBody"
-        });
-    }
-
-    next();
+  next();
 };
 
-// 
-const middleware = async function (request, response, next) {
-    try {
-        return response.status(200).json({
-            success: true,
-            message: "Successful Response"
-        });
-    } catch (error) {
-        return res.status(400).json({
-            success: false,
-            error: "Request Failed",
-            stack: error
-        });
-    }
-}
+const authentication = async function (request, response, next) {
+  try {
+    return response.status(200).json({
+      success: true,
+      message: "Successful Autheticated",
+      sessionId: "123456789",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: "Authentication Failed",
+      stack: error,
+    });
+  }
+};
+
+const user = async function (request, response, next) {
+  try {
+    return response.status(200).json({
+      success: true,
+      message: "Successful Response",
+      body: {
+        username: "chikondot", 
+        fullName: "Ty Tongai Munashe Chikondo",
+        emailAddress: "tychi96@outlook.com",
+        contact: 123456789,
+        isActive: true,
+        other: []
+      }
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: "Request Failed",
+      stack: error,
+    });
+  }
+};
 
 module.exports = {
-    validateRequest, middleware
+    validation, authentication, user
 };
