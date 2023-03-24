@@ -1,0 +1,19 @@
+// Responses - 
+const INVALID_CREDENTIALS_RESPONSE = "Failed to authenticate credentials";
+const INVALID_SESSION_RESPONSE = "Failed to create session";
+const INVALID_REQUEST_BODY_RESPONSE = "";
+
+// Headers - 
+const INVALID_CONTENT_TYPE_HEADER = "Invalid Content-Type";
+const INVALID_USER_AGENT_HEADER = "Invalid User-Agent";
+const INVALID_SESSIONID_HEADER = "Invalid Session-Id";
+const MISSING_SESSIONID_HEADER = "Missing Session-Id";
+
+module.exports = {
+  INVALID_CREDENTIALS_RESPONSE,
+  INVALID_SESSION_RESPONSE,
+  INVALID_CONTENT_TYPE_HEADER,
+  INVALID_USER_AGENT_HEADER,
+  INVALID_SESSIONID_HEADER,
+  MISSING_SESSIONID_HEADER
+};
