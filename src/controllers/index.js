@@ -1,27 +1,32 @@
-const validation = async function (request, response, next) {
-  // check if request headers application/json
-  if (request.headers["content-type"] !== "application/json") {
-    return response.status(403).json({
-      success: false,
-      error: "Invalid ContentType",
-    });
-  }
-
-  next();
-};
+const validator = require("../utils/validations");
+const operator = require("../utils/operations");
 
 const authentication = async function (request, response, next) {
+  const { username, password } = request.body;
+
   try {
+    checkValue(
+      await validator.hasValidCredentials(username, password),
+      "Invalid Credentials"
+    );
+
+    const uuid = await operator.session(username, password)
+    checkValue(
+      uuid,
+      "Failed to create session"
+    );
+
+    // TODO :: persist UUID so can be used to auth upcoming requests
+
     return response.status(200).json({
       success: true,
-      message: "Successful Autheticated",
-      sessionId: "123456789",
+      message: "Autheticated",
+      sessionId: uuid,
     });
   } catch (error) {
-    return res.status(400).json({
+    return response.status(400).json({
       success: false,
-      error: "Authentication Failed",
-      stack: error,
+      message: error,
     });
   }
 };
@@ -32,13 +37,13 @@ const user = async function (request, response, next) {
       success: true,
       message: "Successful Response",
       body: {
-        username: "chikondot", 
+        username: "chikondot",
         fullName: "Ty Tongai Munashe Chikondo",
         emailAddress: "tychi96@outlook.com",
         contact: 123456789,
         isActive: true,
-        other: []
-      }
+        other: [],
+      },
     });
   } catch (error) {
     return res.status(400).json({
@@ -49,6 +54,15 @@ const user = async function (request, response, next) {
   }
 };
 
+function checkValue(check, message) {
+  if (!check) {
+    throw message;
+  }
+
+  return;
+}
+
 module.exports = {
-    validation, authentication, user
+  authentication,
+  user,
 };
