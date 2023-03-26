@@ -2,21 +2,39 @@
 const { query } = require("../index");
 
 const findAllUsers = async function () {
-  const result = await query(async function (db) {
+  return await query(async function (db) {
     return await db.collection("users").find({});
   });
-
-  console.log(`[mongodb] documents found\n${JSON.stringify(result)}`);
-  return result;
 };
 
 const findUser = async function (user) {
-  const result = await query(async function (db) {
+  return await query(async function (db) {
     return await db.collection("users").find({ username: user });
   });
+};
 
-  console.log(`[mongodb] document found\n${JSON.stringify(result)}`);
-  return result;
+const userExists = async function (username) {
+  return await query(async function (db) {
+    const result = await db
+      .collection("users")
+      .countDocuments({ username: username });
+    if (result && result > 0) {
+      return true;
+    }
+
+    return false;
+  });
+};
+
+const userExistsAndIsAdmin = async function (username) {
+  return await query(async function (db) {
+    const result = await db.collection("users").findOne({ username: username });
+    if (result && result.isAdmin) {
+      return true;
+    }
+
+    return false;
+  });
 };
 
 const createUser = async function (document) {
@@ -25,15 +43,16 @@ const createUser = async function (document) {
   });
 
   if (result.acknowledged) {
-    return {};
+    return;
   } else {
-    throw "Something" // refine.
+    throw "No Result";
   }
-
 };
 
 module.exports = {
   findAllUsers,
   findUser,
+  userExists,
+  userExistsAndIsAdmin,
   createUser,
 };
