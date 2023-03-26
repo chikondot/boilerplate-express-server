@@ -1,19 +1,29 @@
-// mongoose package import
-const mongoose = require('mongoose');
+const DEV_URL = `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`;
+const PROD_URL = `mongodb://username:password@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/?authSource=admin`;
 
-// .env config settings
-require('dotenv').config()
+require("dotenv").config();
 
-// define connection string 
-const url = `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`;
-const auth_url = `mongodb://username:password@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/?authSource=admin`;
+const { MongoClient } = require("mongodb");
+const client = new MongoClient(
+  process.env.NODE_ENV === "production" ? PROD_URL : DEV_URL
+);
 
-// CONNECT TO DATABASE FOR SPECIFIED URL
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(() => {
-    console.log(`mongodb started. connection established!`)
-}).catch(error => (
-    console.error(`mongodb connection failed!\nError: ${error}`)
-));
+const query = async function (operations) {
+  try {
+    await client.connect();
 
-// EXPORT
-module.exports = mongoose;
+    // perform query here
+    const db = client.db(process.env.MONGODB_DB);
+
+    await operations(db);
+  } catch (error) {
+    console.error(`[mongodb] an error has occured. ${error.stack}`);
+
+    throw error; // TODO :: extend error handling
+  } finally {
+    console.log(`[mongodb] closing connection🛑`);
+    await client.close();
+  }
+};
+
+module.exports = { query };
