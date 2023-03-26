@@ -1,6 +1,8 @@
-const userController = async function (request, response, next) {
+const { findUser } = require("../database/mongodb/collection/user");
+
+const adminViewController = async function (request, response, next) {
   const { username } = request.body;
-  
+
   try {
     return response.status(200).json({
       success: true,
@@ -15,12 +17,11 @@ const userController = async function (request, response, next) {
       },
     });
   } catch (error) {
-    return res.status(400).json({
+    return response.status(400).json({
       success: false,
-      error: "Request Failed",
-      stack: error,
+      message: error,
     });
   }
 };
 
-module.exports = userController;
+module.exports = adminViewController;

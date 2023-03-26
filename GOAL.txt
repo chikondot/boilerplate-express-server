@@ -21,6 +21,7 @@ ADMIN ROUTE (private)
     - as an admin i want to controll access to the service 
     * call /admin   
         * create a user 
+        * view a user
 
 v2:
 
