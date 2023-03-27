@@ -1,7 +1,7 @@
 const { createHash } = require("./encryption");
 
 // TODO :: all validations to be handled here
-const createUserObject = async function (user) {
+const createAuthenticationObject = async function (user) {
   const hash = await createHash(`${user.username}:${user.password}`);
   return {
     username: user.username,
@@ -11,7 +11,7 @@ const createUserObject = async function (user) {
   };
 };
 
-const createAuthenticationObject = async function (user) {
+const createUserObject = async function (user) {
   return {
     username: user.username,
     fullName: user.fullName,
