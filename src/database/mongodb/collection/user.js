@@ -45,7 +45,7 @@ const createUser = async function (document) {
   if (result.acknowledged) {
     return;
   } else {
-    throw "No Result";
+    throw "Failed to create user object";
   }
 };
 

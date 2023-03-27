@@ -1,4 +1,5 @@
 {
+    "username": "chikondot", 
     "hash": "hashOfUsernameAndPassword",
     "sessionId": "currentSessionIdToAutoNull",
     "isActive": true

@@ -3,6 +3,13 @@ const {
   userExistsAndIsAdmin,
   createUser,
 } = require("../database/mongodb/collection/user");
+const {
+  createAuthenticatedUser,
+} = require("../database/mongodb/collection/authentication");
+const {
+  createUserObject,
+  createAuthenticationObject,
+} = require("../utils/objects");
 
 const adminCreateController = async function (request, response, next) {
   /**
@@ -23,17 +30,10 @@ const adminCreateController = async function (request, response, next) {
       throw "User already exists";
     }
 
-    // TODO :: create instance in authentication and then users
+    const authCreationObject = await createAuthenticationObject(user);
+    const userCreationObject = await createUserObject(user);
 
-    const userCreationObject = {
-      username: user.username,
-      fullName: user.fullName,
-      emailAddress: user.emailAddress,
-      contact: user.contact,
-      isAdmin: user.isAdmin,
-      extra: [],
-    };
-
+    await createAuthenticatedUser(authCreationObject);
     await createUser(userCreationObject);
     return response.status(200).json({
       success: true,
