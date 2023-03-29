@@ -1,48 +1,20 @@
-const {
-  userExists,
-  userExistsAndIsAdmin,
-  createUser,
-} = require("../databases/mongodb/collection/user.mongodb");
-const {
-  createAuthenticatedUser,
-} = require("../databases/mongodb/collection/authentication.mongodb");
-const {
-  createUserObject,
-  createAuthenticationObject,
-} = require("../utils/objects");
+const AdministrationService = require("../services/administartion.service");
+const AdministrationServiceInstance = new AdministrationService();
 
-const adminCreateController = async function (request, response, next) {
   /**
-   * username: check if user exists and has admin priviledge
-   * user: user object to be validated and created
+   * @description Controller for /admin/create path
+   * @returns {{success: boolean, message: *} | {success: boolean, error: *}} JSON response to user
    */
-  const { username, user } = request.body;
-
+const adminCreateController = async function (request, response, next) {
   try {
-    const isAdmin = await userExistsAndIsAdmin(username);
-    if (!isAdmin) {
-      throw "User is not Administrator, Can't this perform action";
-    }
-
-    const existingUser = await userExists(user.username);
-    if (existingUser) {
-      // TODO :: perform update
-      throw "User already exists";
-    }
-
-    const authCreationObject = await createAuthenticationObject(user);
-    const userCreationObject = await createUserObject(user);
-
-    await createAuthenticatedUser(authCreationObject);
-    await createUser(userCreationObject);
-    return response.status(200).json({
-      success: true,
-      message: "Successfully Created",
-    });
+    // TODO :: check request.body has correct fields
+    
+    let result = await AdministrationServiceInstance.create(request.body);
+    return response.status(200).json(result);
   } catch (error) {
     return response.status(400).json({
       success: false,
-      message: error,
+      error: error,
     });
   }
 };

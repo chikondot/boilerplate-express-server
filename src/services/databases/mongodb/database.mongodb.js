@@ -8,7 +8,7 @@ const client = new MongoClient(
   process.env.RUN_ENVIRONMENT === "production" ? PROD_URL : DEV_URL
 );
 
-const query = async function (operations) {
+const Query = async function (operations) {
   try {
     await client.connect();
     const db = client.db(process.env.MONGODB_DB);
@@ -21,4 +21,4 @@ const query = async function (operations) {
   }
 };
 
-module.exports = { query };
+module.exports = { Query };

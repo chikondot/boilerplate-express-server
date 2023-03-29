@@ -1,4 +1,4 @@
-const { INVALID_CREDENTIALS_RESPONSE } = require("./errors/invalid");
+const { INVALID_CREDENTIALS_RESPONSE } = require("./constants/errors/invalid.errors");
 
 const credentials = async function (username, password) {
   if (!username || !password) {

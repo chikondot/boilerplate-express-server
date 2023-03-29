@@ -1,7 +1,7 @@
 const {
   findUser,
   findAllUsers,
-} = require("../databases/mongodb/collection/user.mongodb");
+} = require("../services/databases/mongodb/collection/user.mongodb");
 
 const adminViewController = async function (request, response, next) {
   const { username } = request.body;

@@ -1,8 +1,8 @@
 // TODO :: https://www.mongodb.com/docs/drivers/node/current/fundamentals/typescript/
-const { query } = require("../database.mongodb");
+const { Query } = require("../database.mongodb");
 
 const createAuthenticatedUser = async function (document) {
-  const result = await query(async function (db) {
+  const result = await Query(async function (db) {
     return await db.collection("authentication").insertOne(document);
   });
 
@@ -17,7 +17,7 @@ const createSession = async function (sessionId) {};
 
 // TODO :: add check for isActive
 const isAuthenticatedUser = async function () {
-  return await query(async function (db) {
+  return await Query(async function (db) {
     const result = await db
       .collection("authentication")
       .countDocuments({ username: username });

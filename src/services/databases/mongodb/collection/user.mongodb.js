@@ -1,20 +1,20 @@
 // TODO :: https://www.mongodb.com/docs/drivers/node/current/fundamentals/typescript/
-const { query } = require("../database.mongodb");
+const { Query } = require("../database.mongodb");
 
 const findAllUsers = async function () {
-  return await query(async function (db) {
+  return await Query(async function (db) {
     return await db.collection("users").find({}).toArray();
   });
 };
 
 const findUser = async function (user) {
-  return await query(async function (db) {
+  return await Query(async function (db) {
     return await db.collection("users").findOne({ username: user });
   });
 };
 
 const userExists = async function (username) {
-  return await query(async function (db) {
+  return await Query(async function (db) {
     const result = await db
       .collection("users")
       .countDocuments({ username: username });
@@ -27,7 +27,7 @@ const userExists = async function (username) {
 };
 
 const userExistsAndIsAdmin = async function (username) {
-  return await query(async function (db) {
+  return await Query(async function (db) {
     const result = await db.collection("users").findOne({ username: username });
     if (result && result.isAdmin) {
       return true;
@@ -38,7 +38,7 @@ const userExistsAndIsAdmin = async function (username) {
 };
 
 const createUser = async function (document) {
-  const result = await query(async function (db) {
+  const result = await Query(async function (db) {
     return await db.collection("users").insertOne(document);
   });
 
