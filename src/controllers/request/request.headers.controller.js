@@ -6,7 +6,7 @@ const {
 } = require("../../middlewares/constants/errors/invalid.errors");
 
 const headerController = async function (request, response, next) {
-  if (!isAuthentication) {
+  if (request.path !== "/authentication") {
     if (!request.headers["session-id"]) {
       return responseError(response, MISSING_SESSIONID_HEADER);
     }
@@ -33,9 +33,6 @@ function responseError(response, message) {
   });
 }
 
-function isAuthentication(request) {
-  return request.path === "/authentication" ? true : false;
-}
 
 async function isValidSession(sessionId) {}
 
