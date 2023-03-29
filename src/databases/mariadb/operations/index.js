@@ -5,7 +5,7 @@ const connect = require('../index');
 require('dotenv').config();
 
 // function holding queries and logic for middleware
-const mariaDB = function () {
+const MariaDB = function () {
 
     // example of an INSERT statement
     this.insert = function (columns, values) { 
@@ -43,4 +43,4 @@ const mariaDB = function () {
 };
 
 // EXPORT 
-module.exports = mariaDB;
+module.exports = MariaDB;

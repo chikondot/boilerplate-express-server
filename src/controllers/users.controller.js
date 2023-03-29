@@ -1,11 +1,10 @@
 const userController = async function (request, response, next) {
   const { username } = request.body;
-  
+
   try {
     return response.status(200).json({
       success: true,
-      message: "Successful Response",
-      body: {
+      message: {
         username: "chikondot",
         fullName: "Ty Tongai Munashe Chikondo",
         emailAddress: "tychi96@outlook.com",
@@ -17,8 +16,7 @@ const userController = async function (request, response, next) {
   } catch (error) {
     return res.status(400).json({
       success: false,
-      error: "Request Failed",
-      stack: error,
+      message: error,
     });
   }
 };

@@ -2,10 +2,10 @@ const {
   userExists,
   userExistsAndIsAdmin,
   createUser,
-} = require("../database/mongodb/collection/user");
+} = require("../databases/mongodb/collection/user.mongodb");
 const {
   createAuthenticatedUser,
-} = require("../database/mongodb/collection/authentication");
+} = require("../databases/mongodb/collection/authentication.mongodb");
 const {
   createUserObject,
   createAuthenticationObject,

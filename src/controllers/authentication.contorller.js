@@ -15,8 +15,7 @@ const authController = async function (request, response, next) {
 
     return response.status(200).json({
       success: true,
-      message: "Autheticated",
-      sessionId: uuid,
+      message: uuid
     });
   } catch (error) {
     return response.status(400).json({

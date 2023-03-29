@@ -1,20 +1,26 @@
-const { findUser } = require("../database/mongodb/collection/user");
+const {
+  findUser,
+  findAllUsers,
+} = require("../databases/mongodb/collection/user.mongodb");
 
 const adminViewController = async function (request, response, next) {
   const { username } = request.body;
 
   try {
+    var user;
+    if (username && username !== "") {
+      user = await findUser(username);
+    } else {
+      user = await findAllUsers();
+    }
+
+    if (!user) {
+      throw `Failed to find a user for ${username}`
+    }
+
     return response.status(200).json({
       success: true,
-      message: "Successful Response",
-      body: {
-        username: "chikondot",
-        fullName: "Ty Tongai Munashe Chikondo",
-        emailAddress: "tychi96@outlook.com",
-        contact: 123456789,
-        isActive: true,
-        other: [],
-      },
+      message: user,
     });
   } catch (error) {
     return response.status(400).json({

@@ -1,15 +1,15 @@
 // TODO :: https://www.mongodb.com/docs/drivers/node/current/fundamentals/typescript/
-const { query } = require("../index");
+const { query } = require("../database.mongodb");
 
 const findAllUsers = async function () {
   return await query(async function (db) {
-    return await db.collection("users").find({});
+    return await db.collection("users").find({}).toArray();
   });
 };
 
 const findUser = async function (user) {
   return await query(async function (db) {
-    return await db.collection("users").find({ username: user });
+    return await db.collection("users").findOne({ username: user });
   });
 };
 

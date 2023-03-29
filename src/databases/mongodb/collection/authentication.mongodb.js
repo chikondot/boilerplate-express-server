@@ -1,5 +1,5 @@
 // TODO :: https://www.mongodb.com/docs/drivers/node/current/fundamentals/typescript/
-const { query } = require("../index");
+const { query } = require("../database.mongodb");
 
 const createAuthenticatedUser = async function (document) {
   const result = await query(async function (db) {
