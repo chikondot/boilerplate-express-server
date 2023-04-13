@@ -42,6 +42,7 @@ const userExistsAndIsAdmin = async function (username) {
   });
 };
 
+// TODO :: implement updateOrCreateUser: `https://www.mongodb.com/docs/manual/reference/method/db.collection.update/#std-label-upsert-behavior`
 const createUser = async function (document) {
   const result = await Query(async function (db) {
     return await db.collection("users").insertOne(document);

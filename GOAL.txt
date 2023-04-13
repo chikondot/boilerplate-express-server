@@ -14,7 +14,8 @@ AUTHENTICATION ROUTE (public)
 USER ROUTE (public)
     - as a user i want to be able to see and update my information
     * call /user
-        * check allowed request + sessionId
+        * check allowed request
+        * validate sessionId [use to get user information?]
         * return to user
 
 ADMIN ROUTE (private)

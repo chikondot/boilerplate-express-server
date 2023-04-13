@@ -1,4 +1,4 @@
-const { INVALID_CREDENTIALS_RESPONSE } = require("./constants/errors/invalid.errors");
+const { INVALID_CREDENTIALS_RESPONSE } = require("./constants/errors/invalid.error.middleware");
 
 const credentials = async function (username, password) {
   if (!username || !password) {

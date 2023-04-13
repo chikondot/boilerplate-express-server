@@ -1,6 +1,6 @@
-const validator = require("../middlewares/validations");
-const operator = require("../middlewares/operations");
-const { INVALID_SESSION_RESPONSE } = require("../middlewares/constants/errors/invalid.errors");
+const validator = require("../middleware/validation.middleware");
+const operator = require("../middleware/operation.middleware");
+const { INVALID_SESSION_RESPONSE } = require("../middleware/constants/errors/invalid.error.middleware");
 
 const authController = async function (request, response, next) {
   const { username, password } = request.body;
