@@ -3,13 +3,18 @@ const { Query } = require("../database.mongodb");
 
 const findAllUsers = async function () {
   return await Query(async function (db) {
-    return await db.collection("users").find({}).toArray();
+    return await db
+      .collection("users")
+      .find({}, { projection: { _id: 0 } })
+      .toArray();
   });
 };
 
 const findUser = async function (user) {
   return await Query(async function (db) {
-    return await db.collection("users").findOne({ username: user });
+    return await db
+      .collection("users")
+      .findOne({ username: user }, { projection: { _id: 0 } });
   });
 };
 

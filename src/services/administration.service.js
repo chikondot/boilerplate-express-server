@@ -1,4 +1,6 @@
 const {
+  findAllUsers,
+  findUser,
   userExists,
   userExistsAndIsAdmin,
   createUser,
@@ -29,7 +31,7 @@ class AdministrationService {
 
       const existingUser = await userExists(user.username);
       if (existingUser) {
-        // TODO :: perform update
+        // TODO :: use and update mongodb statement that upserts when a user already exists?
         throw "User already exists";
       }
 
@@ -47,7 +49,30 @@ class AdministrationService {
     }
   }
 
-  async view() {}
+  /**
+   * @description Return specific user with provided username OR default to return all users
+   * @param username {String} String[Optional] of required username
+   * @returns {Promise<{success: boolean, message: *} | Error>}
+   */
+  async view(username) {
+    try {
+      var user;
+      if (username && username !== "") {
+        user = await findUser(username);
+      } else {
+        user = await findAllUsers();
+      }
+
+      if (!user) {
+        throw `Failed to find a user for ${username}`;
+      }
+
+      return { success: true, message: user };
+    } catch (error) {
+      console.error(`[AdministrationService.view] error: ${error}`);
+      throw error;
+    }
+  }
 }
 
 module.exports = AdministrationService;
