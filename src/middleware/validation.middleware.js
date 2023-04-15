@@ -1,6 +1,6 @@
 const { INVALID_CREDENTIALS_RESPONSE } = require("./constants/errors/invalid.error.middleware");
 
-const credentials = async function (username, password) {
+const credentialsNotNullOrEmpty = async function (username, password) {
   if (!username || !password) {
     throw INVALID_CREDENTIALS_RESPONSE;
   }
@@ -16,4 +16,4 @@ const values = async function (check, message) {
   return;
 };
 
-module.exports = { credentials, values };
+module.exports = { credentialsNotNullOrEmpty, values };
