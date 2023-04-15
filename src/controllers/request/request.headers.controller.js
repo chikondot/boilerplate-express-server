@@ -3,7 +3,7 @@ const {
   INVALID_SESSIONID_HEADER,
   INVALID_USER_AGENT_HEADER,
   MISSING_SESSIONID_HEADER,
-} = require("../../middlewares/constants/errors/invalid.errors");
+} = require("../../middleware/constants/errors/invalid.error.middleware");
 
 const headerController = async function (request, response, next) {
   if (request.path !== "/authentication") {

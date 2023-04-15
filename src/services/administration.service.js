@@ -11,7 +11,7 @@ const {
 const {
   createUserObject,
   createAuthenticationObject,
-} = require("../middlewares/objects");
+} = require("../middleware/object.middleware");
 
 class AdministrationService {
   /**
